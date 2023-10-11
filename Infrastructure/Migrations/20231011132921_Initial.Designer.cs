@@ -2,16 +2,15 @@
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DataAccess.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20221010193042_Initial")]
+    [Migration("20231011132921_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,21 +18,17 @@ namespace DataAccess.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("DataAccess.Entities.Color", b =>
+            modelBuilder.Entity("BusinessLogic.Entities.Color", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -92,22 +87,20 @@ namespace DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataAccess.Entities.Phone", b =>
+            modelBuilder.Entity("BusinessLogic.Entities.Phone", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Memory")
                         .HasColumnType("int");
@@ -115,10 +108,10 @@ namespace DataAccess.Migrations
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -169,9 +162,9 @@ namespace DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataAccess.Entities.Phone", b =>
+            modelBuilder.Entity("BusinessLogic.Entities.Phone", b =>
                 {
-                    b.HasOne("DataAccess.Entities.Color", "Color")
+                    b.HasOne("BusinessLogic.Entities.Color", "Color")
                         .WithMany("Phones")
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -180,7 +173,7 @@ namespace DataAccess.Migrations
                     b.Navigation("Color");
                 });
 
-            modelBuilder.Entity("DataAccess.Entities.Color", b =>
+            modelBuilder.Entity("BusinessLogic.Entities.Color", b =>
                 {
                     b.Navigation("Phones");
                 });
