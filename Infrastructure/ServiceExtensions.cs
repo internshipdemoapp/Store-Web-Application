@@ -16,7 +16,7 @@ namespace Infrastructure
         public static void AddDbContext(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<StoreDbContext>(x =>
-                x.UseSqlServer(connectionString));
+            x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
         }
 
         public static void AddRepository(this IServiceCollection services)

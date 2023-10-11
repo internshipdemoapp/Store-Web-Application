@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using MVC_apple_store.Services;
 using Infrastructure;
 using BusinessLogic;
+using Core.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("LocalDb");
+string connectionString = ConnectionStringBuilder.GenerateConnectionString(builder);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
