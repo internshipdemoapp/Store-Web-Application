@@ -8,9 +8,10 @@ using Infrastructure;
 using BusinessLogic;
 using Core.Helpers;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = ConnectionStringBuilder.GenerateConnectionString(builder);
+string connectionString = ConnectionStringBuilder.GenerateConnectionString(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

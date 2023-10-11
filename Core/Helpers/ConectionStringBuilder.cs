@@ -10,9 +10,13 @@ namespace Core.Helpers
 {
     public static class ConnectionStringBuilder
     {
-        public static string GenerateConnectionString(WebApplicationBuilder builder)
+        public static IConfiguration Configuration { get; set; }
+        public static string GenerateConnectionString(IConfiguration? configuration=null)
         {
-            var dbSettings = builder.Configuration.GetSection("DbSecrets").Get<DbConnectionSettings>();
+            if(configuration!=null)
+                Configuration = configuration;
+
+            var dbSettings = Configuration.GetSection("DbSecrets").Get<DbConnectionSettings>();
 
             string connectionString = $"Server={dbSettings.DbHost};Port=3306;Database={dbSettings.DbName};User Id={dbSettings.DbUser};Password={dbSettings.DbPassword};Connect Timeout=30;SslMode=None";
 
