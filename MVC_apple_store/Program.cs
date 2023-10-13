@@ -11,8 +11,8 @@ using Core.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = ConnectionStringBuilder.GenerateConnectionString();
-//string connectionString = ConnectionStringBuilder.GenerateConnectionString(builder.Configuration);
+//string connectionString = ConnectionStringBuilder.GenerateConnectionString();
+string connectionString = ConnectionStringBuilder.GenerateConnectionString(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
